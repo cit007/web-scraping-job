@@ -27,4 +27,5 @@ def extract_indeed_pages():
 
 def extract_indeed_jobs(last_page):
     for page in range(last_page):
-        print(f"&start={page * LIMIT}")
+        result = requests.get(f"{INDEED_URL}&start={page * LIMIT}")
+        print(result.status_code)
