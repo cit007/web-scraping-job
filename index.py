@@ -7,12 +7,15 @@ indeed_soup = BeautifulSoup(indeed_result.text, "html.parser")
 
 pagination = indeed_soup.find("div", {"class": "pagination"})
 
-pages = pagination.find_all("a")
-spans = []
-for page in pages:
-    spans.append(page.find("span"))
+links = pagination.find_all("a")
+pages = []
+for link in links[:-1]:
+    pages.append(int(link.find("span").string))
 
-# delete last one[next] from spans
-spans = spans[0:-1]
+# delete last one[next] from pages
+# pages = pages[0:-1]
 
-print(spans)
+max_page = pages[-1]
+
+for n in range(max_page):
+    print(f"start={n*50}")
