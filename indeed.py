@@ -49,4 +49,7 @@ def extract_job(job_html):
     else:
         company = (company.string).strip()
 
-    return {"title": title, "company": company}
+    # LOCATION
+    location = job_html.find("div", {"class": "recJobLoc"})["data-rc-loc"]
+
+    return {"title": title, "company": company, "location": location}
