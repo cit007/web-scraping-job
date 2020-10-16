@@ -63,3 +63,9 @@ def extract_job(page_url, job_html):
     detail_page = f"https://www.indeed.com/viewjob?jk={job_id}"
 
     return {"title": title, "company": company, "location": location, "link": detail_page}
+
+
+def get_jobs():
+    last_indeed_page = extract_indeed_pages()
+    indeed_jobs = extract_indeed_jobs(last_indeed_page)
+    return indeed_jobs
