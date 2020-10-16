@@ -26,16 +26,21 @@ def extract_indeed_pages():
 
 
 def extract_indeed_jobs(last_page):
-    #    for page in range(last_page):
-    page_url = f"{INDEED_URL}&start={0 * LIMIT}"
-    result = requests.get(page_url)
-    soup = BeautifulSoup(result.text, "html.parser")
-    jobs = soup.find_all("div", {"class": "jobsearch-SerpJobCard"})
-    # print(jobs)
+    jobs_list = []
+    for page in range(last_page):
+        print(f"# WEB SCRAPING PAGE{page}")
+        page_url = f"{INDEED_URL}&start={page * LIMIT}"
+        result = requests.get(page_url)
+        soup = BeautifulSoup(result.text, "html.parser")
+        jobs = soup.find_all("div", {"class": "jobsearch-SerpJobCard"})
+        # print(jobs)
 
-    for job in jobs:
-        job_info = extract_job(page_url, job)
-        print(job_info)
+        for job in jobs:
+            job_info = extract_job(page_url, job)
+            # print(job_info)
+            jobs_list.append(job_info)
+
+    return jobs_list
 
 
 def extract_job(page_url, job_html):
