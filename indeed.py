@@ -27,17 +27,18 @@ def extract_indeed_pages():
 
 def extract_indeed_jobs(last_page):
     #    for page in range(last_page):
-    result = requests.get(f"{INDEED_URL}&start={0 * LIMIT}")
+    page_url = f"{INDEED_URL}&start={0 * LIMIT}"
+    result = requests.get(page_url)
     soup = BeautifulSoup(result.text, "html.parser")
     jobs = soup.find_all("div", {"class": "jobsearch-SerpJobCard"})
     # print(jobs)
 
     for job in jobs:
-        job_info = extract_job(job)
+        job_info = extract_job(page_url, job)
         print(job_info)
 
 
-def extract_job(job_html):
+def extract_job(page_url, job_html):
     # TITLE
     title = job_html.find("h2", {"class": "title"}).find("a")["title"]
 
@@ -52,4 +53,8 @@ def extract_job(job_html):
     # LOCATION
     location = job_html.find("div", {"class": "recJobLoc"})["data-rc-loc"]
 
-    return {"title": title, "company": company, "location": location}
+    # JOB_ID (detail page)
+    job_id = job_html["data-jk"]
+    detail_page = f"https://www.indeed.com/viewjob?jk={job_id}"
+
+    return {"title": title, "company": company, "location": location, "link": detail_page}
