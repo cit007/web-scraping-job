@@ -28,7 +28,7 @@ def extract_indeed_pages():
 def extract_indeed_jobs(last_page):
     jobs_list = []
     for page in range(last_page):
-        print(f"# WEB SCRAPING PAGE{page}")
+        print(f"# WEB SCRAPING INDEED PAGE : {page}")
         page_url = f"{INDEED_URL}&start={page * LIMIT}"
         result = requests.get(page_url)
         soup = BeautifulSoup(result.text, "html.parser")
