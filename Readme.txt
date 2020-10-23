@@ -1,9 +1,12 @@
-Web scraping Job - search python result
+<Web scraping Job>
+◾️ Function
+1. scraping Python search result
+2. save csv
 
-Job Url
+◾️ Job Search Site
 https://www.indeed.com
 https://stackoverflow.com
 
-install
+◾️ install
 - requests
 - beautifulsoup4
